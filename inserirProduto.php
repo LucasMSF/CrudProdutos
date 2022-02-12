@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +15,7 @@
     <div class="container grey darken-4">
         <h2 style="text-align: center;">Cadastrar Novo Produto</h2>
         <div class="formContainer">
-            <form class="form" action="controllers/insert.php" method="post">
+            <form class="form" action="controllers/inserir.php" method="post">
                 <div class="input-field">
                     <input id="nome" type="text" class="validate" name="nome">
                     <label for="nome">Nome do produto</label>
@@ -30,11 +31,15 @@
                 <button class="btn blue">Cadastrar</button>
                 <br>
                 <a href="listaProdutos.php" class="btn teal accent-3">Lista de produtos</a>
-                <p id="msg">
-                    <?php if (isset($_SESSION['msg'])) echo $_SESSION['msg'];  unset($_SESSION['msg'])?>
-                </p>
+                <?php
+                if (isset($_SESSION['msg'])) {
+                    echo "<br><div style=\"width: 100%; background: rgb(161, 157, 157); text-align: center; padding: 6px\" id=\"msg\">" . $_SESSION['msg'] . "</div>";
+                    unset($_SESSION['msg']);
+                }
+                ?>
             </form>
         </div>
+        <?php require('creditos.html'); ?>
         <!-- <br>
         <button class="btn teal accent-3">cadastrar novo produto</button> -->
     </div>

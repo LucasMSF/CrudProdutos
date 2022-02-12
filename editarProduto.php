@@ -1,6 +1,7 @@
 <?php 
 session_start();
-require_once('../class/CrudProdutoClasse.php');
+require_once('class/CrudProdutoClasse.php');
+$_SESSION['idProduto'] = $_GET['id'];
 ?>
 <html lang="pt-br">
 <head>
@@ -17,31 +18,33 @@ require_once('../class/CrudProdutoClasse.php');
     <div class="container grey darken-4">
         <h2 style="text-align: center;">Editar Produto</h2>
         <div class="formContainer">
-            <form class="form" action="controllers/insert.php" method="post">
+            <form class="form" action="controllers/editar.php" method="post">
             <div class="input-field">
-                    <input id="id" type="text" class="validate" value=<?php echo $_GET['id']?> disabled>
+                    <input id="id" type="text" class="validate" name="idProduto" value=<?php echo $_GET['id']?> disabled>
                     <label for="id">ID do produto</label>
                 </div>
+                <?php
+                    $Produto = new ProdutoCrud();
+                    $produto = $Produto->selecionar($_GET['id']);
+                ?>
                 <div class="input-field">
-                    <input id="nome" type="text" class="validate" name="nome">
+                    <input id="nome" type="text" class="validate" name="nome" value="<?php echo $produto['nome']?>">
                     <label for="nome">Nome do produto</label>
                 </div>
                 <div class="input-field">
-                    <input id="descricao" type="text" class="validate" name="descricao">
+                    <input id="descricao" type="text" class="validate" name="descricao" value="<?php echo $produto['descricao']?>">
                     <label for="descricao">Descrição</label>
                 </div>
                 <div class="input-field">
-                    <input id="valor" type="number" step='0.01' class="validate" name="valor">
+                    <input id="valor" type="number" step='0.01' class="validate" name="valor" value=<?php echo $produto['valor']?>>
                     <label for="valor">Valor</label>
                 </div>
                 <button class="btn blue">Editar</button>
                 <br>
                 <a href="listaProdutos.php" class="btn red darken-3">Cancelar edição</a>
-                <p id="msg">
-                    <?php if (isset($_SESSION['msg'])) echo $_SESSION['msg'];  unset($_SESSION['msg'])?>
-                </p>
             </form>
         </div>
+        <?php require('creditos.html'); ?>
         <!-- <br>
         <button class="btn teal accent-3">cadastrar novo produto</button> -->
     </div>

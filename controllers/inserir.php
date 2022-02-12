@@ -15,6 +15,7 @@ if(isset($_POST['nome']) and isset($_POST['descricao']) and isset($_POST['valor'
     if($Produto->inserir())
     {
         $msg = 'Produto cadastrado com sucesso!';
+        
     }
     else
     {
@@ -22,10 +23,6 @@ if(isset($_POST['nome']) and isset($_POST['descricao']) and isset($_POST['valor'
     }
 
     $_SESSION['msg'] = $msg;
-    header('Location: ../inserirProduto.php');
-
 }
-else
-{
 
-}
+header('Location: ../inserirProduto.php');

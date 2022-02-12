@@ -10,8 +10,7 @@ class ProdutoCrud
 
     public function inserir()
     {
-        if ($this->verificaAtributos()) 
-        {
+        if ($this->verificaAtributos()) {
             try {
                 $con = Conexao::conectar();
                 $sql = "INSERT INTO tb_produtos VALUES (null, :nome, :descricao, :valor)";
@@ -26,9 +25,30 @@ class ProdutoCrud
                 echo 'Erro na operação do banco: ' . $e->getMessage();
                 die();
             }
+        } else {
+            return false;
         }
-        else
-        {
+    }
+
+    public function editar($id)
+    {
+        if ($this->verificaAtributos()) {
+            try {
+                $con = Conexao::conectar();
+                $sql = "UPDATE tb_produtos SET nome = :nome, descricao = :descricao, valor = :valor WHERE id = :id";
+                $stmt = $con->prepare($sql);
+                $stmt->execute(array(
+                    'id' => $id,
+                    'nome' => $this->nome,
+                    'descricao' => $this->descricao,
+                    'valor' => $this->valor
+                ));
+                return true;
+            } catch (PDOException $e) {
+                echo 'Erro na operação do banco: ' . $e->getMessage();
+                die();
+            }
+        } else {
             return false;
         }
     }
@@ -45,9 +65,7 @@ class ProdutoCrud
                 echo 'Erro na operação do banco: ' . $e->getMessage();
                 die();
             }
-        }
-        else
-        {
+        } else {
             try {
                 $con = Conexao::conectar();
                 $sql = "SELECT * FROM tb_produtos WHERE id = :id";
@@ -58,7 +76,21 @@ class ProdutoCrud
             } catch (PDOException $e) {
                 echo 'Erro na operação do banco: ' . $e->getMessage();
                 die();
-            }    
+            }
+        }
+    }
+
+    public function excluir($id)
+    {
+        try {
+            $con = Conexao::conectar();
+            $sql = "DELETE FROM tb_produtos WHERE id = :id";
+            $stmt = $con->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            return true;
+        } catch (PDOException $e) {
+            echo 'Erro na operação do banco: ' . $e->getMessage();
+            die();
         }
     }
 
