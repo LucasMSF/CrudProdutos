@@ -1,0 +1,29 @@
+.form {
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 550px;
+    padding: 25px;
+}
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-field input:focus+label {
+    color: dodgerblue !important;
+}
+
+.input-field input:focus {
+    border-bottom: 1px solid dodgerblue !important;
+    box-shadow: 0 1px 0 0 dodgerblue !important;
+}
+
+p {
+    color: grey;
+    font-weight: bold;
+    text-align: center;
+}
