@@ -72,7 +72,7 @@ class ProdutoCrud
                 $stmt = $con->prepare($sql);
                 $stmt->execute(['id' => $id]);
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                return $result;
+                return !$result ? false : $result;
             } catch (PDOException $e) {
                 echo 'Erro na operação do banco: ' . $e->getMessage();
                 die();

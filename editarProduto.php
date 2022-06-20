@@ -26,6 +26,7 @@ $_SESSION['idProduto'] = $_GET['id'];
                 <?php
                     $Produto = new ProdutoCrud();
                     $produto = $Produto->selecionar($_GET['id']);
+                    if(!$produto) header('Location: listaProdutos.php')
                 ?>
                 <div class="input-field">
                     <input id="nome" type="text" class="validate" name="nome" value="<?php echo $produto['nome']?>">
